@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.github.nkzawa.socketio.client.Socket;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -37,6 +39,9 @@ public class LoginActivity extends ActionBarActivity {
     public String accessToken = "";
     public String refreshToken = "";
 
+    private SocketConnection connection = SocketConnection.getInstance();
+
+    private Socket mSocket = connection.getmSocket();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +138,8 @@ public class LoginActivity extends ActionBarActivity {
                     refreshToken = tokens[i+2];
                     Log.v("REFRESH_TOKEN : ", refreshToken);
                 }
+
+                connection.setCurrentUsername(username);
             }
             if (res.indexOf("access_token") > -1){
 
